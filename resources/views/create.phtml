@@ -1,0 +1,20 @@
+<?php
+
+use Core\View\View;
+View::extends('layout')
+?>
+
+<?php View::section('title', $title) ?>
+
+<?php View::startSection('content') ?>
+    <h2>Создать лог</h2>
+    <form action="/create" method="post">
+        <label for="type">Тип лога:</label>
+        <input class="form-control" type="text" name="type" id="type">
+        <div class="form-group">
+            <label for="message">Сообщение:</label>
+            <textarea class="form-control" rows="5" name="message" id="message"></textarea>
+        </div>
+        <input class="btn btn-primary" style="margin: 10px 0 30px 0;" type="submit" value="Create">
+    </form>
+<?php View::endSection('content'); ?>

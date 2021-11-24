@@ -1,0 +1,52 @@
+<?php
+
+use App\Module\Log\Entity\Log;
+use Core\View\View;
+View::extends('layout')
+/** @var $logs Log[] */
+?>
+
+<?php View::section('title', $title) ?>
+
+<?php View::startSection('content') ?>
+<h2 style="display: inline-block; margin-right: 390px;">Список логов</h2>
+<a href="<?php echo '/create'  ?>" class="btn btn-primary">Создать лог</a>
+<form>
+    <label for="type">Фильтр по типу</label>
+    <input class="form-control" type="text" name="type" id="type">
+    <input class="btn btn-primary" style="margin: 10px 0 30px 0;" type="submit" value="Find">
+</form>
+
+<form>
+    <label for="type">Сортировка по времени</label>
+    <input class="form-control" type="text" name="ts" id="ts" placeholder="введите asc или desc">
+    <input class="btn btn-primary" style="margin: 10px 0 30px 0;" type="submit" value="Sort">
+</form>
+<?php if (count($logs) > 0): ?>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Time</th>
+            <th scope="col">Type</th>
+            <th scope="col">Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($logs as $log): ?>
+            <tr>
+                <th scope="row"><?= $log->getId() ?></th>
+                <td><?= $log->getDate() ?></td>
+                <td><?= $log->getType() ?></td>
+                <td><?= $log->getMessage() ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <h3>Логи закончились!</h3>
+<?php endif ?>
+<a href="<?php echo sprintf('/?page=%s&type=%s', $page >= 2 ? $page - 1 : 1, $type) ?>" class="btn btn-primary">back</a>
+<a href="<?php echo sprintf('/?page=%s&type=%s', $page + 1, $type) ?>" class="btn btn-primary">up</a>
+<?php View::endSection('content'); ?>
