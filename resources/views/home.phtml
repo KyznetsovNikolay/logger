@@ -14,14 +14,11 @@ View::extends('layout')
 <form>
     <label for="type">Фильтр по типу</label>
     <input class="form-control" type="text" name="type" id="type">
+    <label for="type">Сортировка по времени</label>
+    <input class="form-control" type="text" name="ts" id="ts" placeholder="введите asc или desc">
     <input class="btn btn-primary" style="margin: 10px 0 30px 0;" type="submit" value="Find">
 </form>
 
-<form>
-    <label for="type">Сортировка по времени</label>
-    <input class="form-control" type="text" name="ts" id="ts" placeholder="введите asc или desc">
-    <input class="btn btn-primary" style="margin: 10px 0 30px 0;" type="submit" value="Sort">
-</form>
 <?php if (count($logs) > 0): ?>
 
     <table class="table table-striped">
