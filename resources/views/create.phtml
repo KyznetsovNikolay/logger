@@ -10,6 +10,13 @@ View::extends('layout')
     <h2>Создать лог</h2>
     <form action="/create" method="post">
         <label for="type">Тип лога:</label>
+        <?php if (count($errors) > 0): ?>
+            <?php foreach ($errors as $error): ?>
+                <ul>
+                    <li style="color: red;"><?= $error ?></li>
+                </ul>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <input class="form-control" type="text" name="type" id="type">
         <div class="form-group">
             <label for="message">Сообщение:</label>

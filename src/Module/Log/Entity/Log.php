@@ -92,6 +92,9 @@ class Log extends Model
      */
     public function setType(int $type): self
     {
+        if ($type <= 0 || $type > 10) {
+            throw new \Exception('Тип должен быть от 1 до 10');
+        }
         $this->type = $type;
         return $this;
     }

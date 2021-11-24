@@ -18,17 +18,23 @@ class CreateAction
      */
     public function __invoke(RequestInterface $request): HtmlResponse
     {
+        $errors = [];
         if ($request->getMethod() === 'POST') {
-            (new Log())
-                ->setTs((new \DateTime()))
-                ->setType((int) $request->getParsedBody()['type'])
-                ->setMessage($request->getParsedBody()['message'])
-                ->save();
-            $request->locationTo('/');
+            try {
+                (new Log())
+                    ->setTs((new \DateTime()))
+                    ->setType((int) $request->getParsedBody()['type'])
+                    ->setMessage($request->getParsedBody()['message'])
+                    ->save();
+                $request->locationTo('/');
+            } catch (\Exception $e) {
+                $errors[] = $e->getMessage();
+            }
         }
 
         return new HtmlResponse(View::render('create', [
             'title' => 'Create page',
+            'errors' => $errors,
         ]));
     }
 }
